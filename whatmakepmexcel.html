@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Management Excellence</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: top;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .actions {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        .actions i {
+            font-size: 24px;
+            cursor: pointer;
+            margin: 0 5px;
+            color: #4CAF50;
+            transition: color 0.3s;
+        }
+        .actions i:hover {
+            color: #45a049;
+        }
+        .element {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.3s;
+        }
+        .collapsed {
+            background: #4CAF50;
+        }
+        .expanded {
+            background: #2E7D32;
+        }
+        .details {
+            display: none;
+            background: #e8f5e9;
+            color: #333;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border-left: 5px solid #4CAF50;
+            list-style: none;
+            padding-left: 20px;
+        }
+        .details li {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .details li::before {
+            content: "✔";
+            color: #4CAF50;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+        }
+    </style>
+    <script>
+        function toggleDetails(id) {
+            var element = document.getElementById(id);
+            var icon = document.getElementById(id + '-icon');
+            var parent = element.previousElementSibling;
+            if (element.style.display === "block") {
+                element.style.display = "none";
+                icon.innerHTML = "+";
+                parent.classList.remove('expanded');
+                parent.classList.add('collapsed');
+            } else {
+                element.style.display = "block";
+                icon.innerHTML = "-";
+                parent.classList.remove('collapsed');
+                parent.classList.add('expanded');
+            }
+        }
+        function controlAll() {
+            var controlbtn = document.getElementById("controlall");
+            var myclass = controlbtn.classList;
+            
+            var action = "expand";
+            if(myclass.contains("fa-minus-square")) {
+                action = "collapse";
+            }
+            var details = document.querySelectorAll('.details');
+            var icons = document.querySelectorAll('.icon');
+            var elements = document.querySelectorAll('.element');
+            if(action == "expand") {
+                details.forEach(function(detail) {
+                    detail.style.display = 'block';
+                });
+                icons.forEach(function(icon) {
+                    icon.innerHTML = '-';
+                });
+                elements.forEach(function(element) {
+                    element.classList.remove('collapsed');
+                    element.classList.add('expanded');
+                });
+                controlbtn.classList.remove("fa-plus-square");
+                controlbtn.classList.add("fa-minus-square");
+            } else {
+                details.forEach(function(detail) {
+                    detail.style.display = 'none';
+                });
+                icons.forEach(function(icon) {
+                    icon.innerHTML = '+';
+                });
+                elements.forEach(function(element) {
+                    element.classList.remove('expanded');
+                    element.classList.add('collapsed');
+                });
+                controlbtn.classList.remove("fa-minus-square");
+                controlbtn.classList.add("fa-plus-square");
+            }
+
+        }
+        function expandAll() {
+            var details = document.querySelectorAll('.details');
+            var icons = document.querySelectorAll('.icon');
+            var elements = document.querySelectorAll('.element');
+            
+        }
+
+        function collapseAll() {
+            var details = document.querySelectorAll('.details');
+            var icons = document.querySelectorAll('.icon');
+            var elements = document.querySelectorAll('.element');
+            details.forEach(function(detail) {
+                detail.style.display = 'none';
+            });
+            icons.forEach(function(icon) {
+                icon.innerHTML = '+';
+            });
+            elements.forEach(function(element) {
+                element.classList.remove('expanded');
+                element.classList.add('collapsed');
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Project Management Excellence</div>
+        <div class="actions">
+            <i class="fas fa-plus-square" id="controlall" onclick="controlAll()" title="Expand All"></i>
+            <!-- <i class="fas fa-minus-square" onclick="collapseAll()" title="Collapse All"></i> -->
+        </div>
+
+        <div class="element collapsed" onclick="toggleDetails('details1')">Clear Objectives and Goals <span class="icon" id="details1-icon">+</span></div>
+        <ul class="details" id="details1">
+            <li>Define clear, measurable, and achievable project objectives.</li>
+            <li>Ensure all stakeholders understand and agree on the goals.</li>
+        </ul>
+
+        <div class="element collapsed" onclick="toggleDetails('details2')">Effective Planning <span class="icon" id="details2-icon">+</span></div>
+        <ul class="details" id="details2">
+            <li>Develop a comprehensive project plan that includes scope, schedule, budget, and resource allocation.</li>
+            <li>Use tools like Gantt charts, PERT diagrams, and work breakdown structures to organize tasks and timelines.</li>
+        </ul>
+
+        <div class="element collapsed" onclick="toggleDetails('details3')">Strong Leadership <span class="icon" id="details3-icon">+</span></div>
+        <ul class="details" id="details3">
+            <li>Exhibit strong leadership skills to motivate and guide the project team.</li>
+            <li>Make informed decisions and provide clear direction.</li>
+        </ul>
+
+        <div class="element collapsed" onclick="toggleDetails('details4')">Communication Skills <span class="icon" id="details4-icon">+</span></div>
+        <ul class="details" id="details4">
+            <li>Maintain open and transparent communication with all stakeholders.</li>
+            <li>Use regular meetings, updates, and reports to keep everyone informed.</li>
+        </ul>
+
+        <div class="element collapsed" onclick="toggleDetails('details5')">Risk Management <span class="icon" id="details5-icon">+</span></div>
+        <ul class="details" id="details5">
+            <li>Identify potential risks early and develop mitigation strategies.</li>
+            <li>Continuously monitor and manage risks throughout the project lifecycle.</li>
+        </ul>
+
+        <div class="element collapsed" onclick="toggleDetails('details6')">Resource Management <span class="icon" id="details6-icon">+</span></div>
+        <ul class="details" id="details6">
+            <li>Allocate and manage resources effectively, including personnel, equipment, and materials.</li>
+            <li>Optimize resource usage to avoid overallocation or underutilization.</li>
+        </ul>
+
+        <div class="element collapsed" onclick="toggleDetails('details7')">Quality Management <span class="icon" id="details7-icon">+</span></div>
+        <ul class="details" id="details7">
+            <li>Implement quality control and assurance processes to meet project standards and specifications.</li>
+            <li>Conduct regular quality reviews and audits.</li>
+        </ul>
+
+        <div class="element collapsed" onclick="toggleDetails('details8')">Stakeholder Engagement <span class="icon" id="details8-icon">+</span></div>
+        <ul class="details" id="details8">
+            <li>Engage with stakeholders regularly to gather feedback and address concerns.</li>
+            <li>Ensure stakeholder needs and expectations are met.</li>
+        </ul>
+
+        <div class="element collapsed" onclick="toggleDetails('details9')">Adaptability and Flexibility <span class="icon" id="details9-icon">+</span></div>
+        <ul class="details" id="details9">
+            <li>Be prepared to adapt plans and strategies as needed in response to changes and unforeseen challenges.</li>
+            <li>Encourage a culture of flexibility and continuous improvement.</li>
+        </ul>
+
+        <div class="element collapsed" onclick="toggleDetails('details10')">Performance Monitoring and Control <span class="icon" id="details10-icon">+</span></div>
+        <ul class="details" id="details10">
+            <li>Track project progress against the plan using key performance indicators (KPIs).</li>
+            <li>Implement corrective actions when deviations occur.</li>
+        </ul>
+
+        <div class="element collapsed" onclick="toggleDetails('details11')">Documentation and Reporting <span class="icon" id="details11-icon">+</span></div>
+        <ul class="details" id="details11">
+            <li>Maintain thorough documentation of project plans, progress, changes, and lessons learned.</li>
+            <li>Provide regular reports to stakeholders summarizing project status and outcomes.</li>
+        </ul>
+
+        <div class="element collapsed" onclick="toggleDetails('details12')">Continuous Improvement <span class="icon" id="details12-icon">+</span></div>
+        <ul class="details" id="details12">
+            <li>Learn from each project by conducting post-project reviews and capturing lessons learned.</li>
+            <li>Apply these insights to improve future project management practices.</li>
+        </ul>
+    </div>
+</body>
+</html>
